@@ -52,7 +52,7 @@ e data fim com provável data fim da cultura calculada pelo sistema. Para
 cada dia do gráfico deve ser mostrado a data, a temperatura média do dia, o
 resultado do graus dias acumulado e a quantidade de chuva em milímetros.
 
-### `Requisitos Funcionais`
+### `Requisitos Não Funcionais`
 
 1. RNF01 - O sistema deve rodar nos navegadores Google Chrome e Mozilla Firefox;
 2. RNF02 - O sistema deve ser responsivo para mobile;
