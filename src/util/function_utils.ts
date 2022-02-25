@@ -41,7 +41,6 @@ export function getCurrentCultura(culturas: Cultura[], culturaId: string): Cultu
     return cultura
 }
 
-
 const defaultRange = 5
 
 export async function calculate(cultura: Cultura) {
