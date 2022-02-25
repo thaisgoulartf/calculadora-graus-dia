@@ -18,13 +18,13 @@ export function CultureTab(props: CulturaProps) {
   const history = useHistory();
 
   function handleDeleteCultura() {
-    console.log(props.cultura)
-    removeCultura(props.cultura.id)
-    history.push("/dashboard")
+    console.log(props.cultura);
+    removeCultura(props.cultura.id);
+    history.push("/dashboard");
   }
 
   function handleUpdateCultura() {
-    // history.push({pathname: "/novaCulturaModal", state: { cultura: props.cultura }});
+    history.push("/editCulturaModal/" + props.cultura.id);
   }
 
   return (

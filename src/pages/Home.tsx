@@ -20,19 +20,32 @@ export function Home() {
     event.preventDefault();
     // if (!user) {
     await signInWithGoogle();
-    await loadCulturas(user!.id);
+    console.log(user);
+    const culturas = await loadCulturas(user!.id);
     // }
     history.push("/novaCultura");
+    console.log(culturas);
+    if (culturas && culturas.length > 0) {
+      history.push("/dashboard");
+    } else {
+      history.push("/novaCultura");
+    }
   }
 
   async function handleSignIn(event: FormEvent) {
     event.preventDefault();
     // if (!user) {
-    console.log('111')
-    await signInWithEmailAndPassword(email, password)
+    console.log("111");
+    await signInWithEmailAndPassword(email, password);
     await loadCulturas(user!.id);
-    // }
     history.push("/novaCultura");
+    const culturas = await loadCulturas(user!.id);
+    console.log(culturas);
+    if (culturas && culturas.length > 0) {
+      history.push("/dashboard");
+    } else {
+      history.push("/novaCultura");
+    }
   }
 
   // useEffect(() => {

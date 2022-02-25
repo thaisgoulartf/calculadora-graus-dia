@@ -1,17 +1,5 @@
 import { Cultura } from "../contexts/CulturaContext";
 
-export function calculateGrausDias(avgTemp: number[], basalTemp: number, thermalSum: number) {
-    const grausDias = []
-    let accumulatedGrausDias = 0
-    for (let index = 0; index < avgTemp.length && accumulatedGrausDias < thermalSum; index++) {
-        const currentTemp = avgTemp[index];
-        const currentDiff = currentTemp - basalTemp
-        accumulatedGrausDias += currentDiff
-        grausDias.push(accumulatedGrausDias)
-    }
-    return grausDias
-}
-
 interface DataTest {
     days: Days[];
 }
@@ -25,6 +13,34 @@ interface GraficoData {
     grausDias: number[],
     lastDay: Date,
 }
+
+export function calculateGrausDias(avgTemp: number[], basalTemp: number, thermalSum: number) {
+    const grausDias = []
+    let accumulatedGrausDias = 0
+    for (let index = 0; index < avgTemp.length && accumulatedGrausDias < thermalSum; index++) {
+        const currentTemp = avgTemp[index];
+        const currentDiff = currentTemp - basalTemp
+        accumulatedGrausDias += currentDiff
+        grausDias.push(accumulatedGrausDias)
+    }
+    return grausDias
+}
+
+export function convertToOneDecimalPlace(value: number) {
+    return +value.toFixed(1)
+}
+
+export function getCurrentCultura(culturas: Cultura[], culturaId: string): Cultura | undefined {
+    var cultura: Cultura | undefined
+    culturas.forEach((currentCultura) => {
+        if (currentCultura.id == culturaId) {
+            cultura = currentCultura
+            return
+        }
+    })
+    return cultura
+}
+
 
 const defaultRange = 5
 
@@ -44,7 +60,6 @@ export async function calculate(cultura: Cultura) {
     console.log('finalDate: ' + finalDate)
     const graficoData: GraficoData = { avgTempList: avgTempList, grausDias: grausDias, lastDay: finalDate }
     console.log(graficoData)
-    //TODO
 }
 
 async function getData(startDate: Date, finalDate: Date) {
@@ -55,11 +70,6 @@ async function getData(startDate: Date, finalDate: Date) {
 
     const query = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/${start}/${final}?unitGroup=metric&include=days&key=${privateKey}&contentType=json`
     console.log('query: ' + query)
-
-    // const response = await fetch(query);
-    // const data = await response.json();
-
-    // return data;
     return result
 }
 

@@ -2,126 +2,43 @@ import "../styles/grafico.scss";
 import {
   Bar,
   CartesianGrid,
-  ResponsiveContainer,
   ComposedChart,
   Legend,
   Line,
+  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
 import { useEffect, useState } from "react";
-import { getGraficoX } from "../services/consultaGrafico";
-
-interface Tempo {
-  resolvedAddress: string;
-  longitude: number;
-  days: Days[];
-}
-interface Days {
-  datetime: string;
-  tempmax: number;
-  temp: number;
-  precip: number;
-}
-
-interface GraficoProps {
-  culturaId: string;
-}
+import { useCultura } from "../hooks/useCulture";
+import { getGraphData, GraphData } from "../util/GraphBuilder";
 
 export function Grafico() {
-  useEffect(() => {}, []);
-
-  const [tempo, setTempo] = useState<Tempo>();
+  //Teste
+  const { culturas } = useCultura();
+  const [data, setData] = useState<GraphData>();
 
   useEffect(() => {
-    getGraficoX().then((data) => {
-      setTempo(data);
+    getData().then((data) => {
+      setData(data);
     });
   }, []);
 
-  const dataTeste = tempo?.days.map((day) => {
+  const dataTest = data?.days.map((day) => {
     return {
-      data: day.datetime,
+      data: day.day.toISOString().split("T")[0],
       chuva: day.precip,
-      temp: day.temp,
+      temp: day.avgTemp,
+      gd: day.accumulatedGrausDias,
     };
   });
 
-  const data = [
-    {
-      data: "21/02",
-      gd: 10,
-      chuva: 10,
-      temp: 26,
-    },
-    {
-      data: "22/02",
-      gd: 30,
-      chuva: 20,
-      temp: 28,
-    },
-    {
-      data: "23/02",
-      gd: 60,
-      chuva: 10,
-      temp: 29,
-    },
-    {
-      data: "24/02",
-      gd: 90,
-      chuva: 20,
-      temp: 18,
-    },
-    {
-      data: "25/02",
-      gd: 100,
-      chuva: 40,
-      temp: 20,
-    },
-    {
-      data: "26/02",
-      gd: 133,
-      chuva: 10,
-      temp: 25,
-    },
-    {
-      data: "27/02",
-      gd: 150,
-      chuva: 30,
-      temp: 24,
-    },
-    {
-      data: "29/02",
-      gd: 60,
-      chuva: 10,
-      temp: 29,
-    },
-    {
-      data: "30/02",
-      gd: 90,
-      chuva: 20,
-      temp: 18,
-    },
-    {
-      data: "31/02",
-      gd: 100,
-      chuva: 40,
-      temp: 20,
-    },
-    {
-      data: "32/02",
-      gd: 133,
-      chuva: 10,
-      temp: 25,
-    },
-    {
-      data: "33/02",
-      gd: 150,
-      chuva: 30,
-      temp: 24,
-    },
-  ];
+  async function getData() {
+    const graphData = await getGraphData(culturas![0]);
+    console.log(graphData);
+    return graphData;
+  }
 
   return (
     <section style={{ width: "100%", height: 400 }}>
@@ -129,7 +46,7 @@ export function Grafico() {
         <ComposedChart
           width={1200}
           height={400}
-          data={data}
+          data={dataTest}
           margin={{
             top: 20,
             right: 20,

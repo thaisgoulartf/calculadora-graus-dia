@@ -1,5 +1,5 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
-import { auth, database, firebase } from "../services/firebase";
+import { createContext, ReactNode, useState } from "react";
+import { auth, database } from "../services/firebase";
 
 export type Cultura = {
   id: string;
@@ -7,7 +7,7 @@ export type Cultura = {
   descricao: string;
   dataInicio: string;
   localizacao: string;
-}
+};
 
 type Planta = {
   nome: string;
@@ -20,12 +20,12 @@ type CulturaContextType = {
   createCultura: (cultura: Cultura) => Promise<void>;
   removeCultura: (culturaId: string) => Promise<void>;
   updateCultura: (cultura: Cultura) => Promise<void>;
-  loadCulturas: (userId: string) => Promise<void>;
-}
+  loadCulturas: (userId: string) => Promise<Cultura[]>;
+};
 
 type CulturaContextProviderProps = {
   children: ReactNode;
-}
+};
 
 export const CulturaContext = createContext({} as CulturaContextType);
 
@@ -33,11 +33,11 @@ export function CulturaContextProvider(props: CulturaContextProviderProps) {
   const [culturas, setCulturas] = useState<Cultura[]>();
 
   async function createCultura(cultura: Cultura) {
-    var culturasValue = culturas
+    var culturasValue = culturas;
     if (!culturasValue) {
-      culturasValue = []
+      culturasValue = [];
     }
-    culturasValue.push(cultura)
+    culturasValue.push(cultura);
     await setCulturas(culturasValue);
     await persistData(culturasValue);
   }
@@ -47,22 +47,21 @@ export function CulturaContextProvider(props: CulturaContextProviderProps) {
     if (culturas) {
       culturas.forEach((currentCultura, index) => {
         if (currentCultura.id === culturaId) indexToRemove = index;
-      })
-      if (indexToRemove > -1)
-        culturas.splice(indexToRemove, 1);
+      });
+      if (indexToRemove > -1) culturas.splice(indexToRemove, 1);
     }
     await setCulturas(culturas);
     await persistData(culturas!);
   }
 
   async function updateCultura(cultura: Cultura) {
-    var culturasValue = culturas
+    var culturasValue = culturas;
     if (culturasValue) {
       culturasValue.forEach((currentCultura, index) => {
         if (currentCultura.id === cultura.id) {
           culturasValue![index] = cultura;
         }
-      })
+      });
     }
     await setCulturas(culturasValue);
     await persistData(culturasValue!);
@@ -71,21 +70,26 @@ export function CulturaContextProvider(props: CulturaContextProviderProps) {
   async function persistData(culturas: Cultura[]) {
     const usuarioAtual = auth.currentUser?.uid;
 
-    database
-      .ref("users/" + usuarioAtual + "/culturas")
-      .set(culturas);
+    database.ref("users/" + usuarioAtual + "/culturas").set(culturas);
   }
 
   async function loadCulturas(userId: string) {
-    var culturasRef = await database
-      .ref("users/" + userId + "/culturas")
-      .get();
+    var culturasRef = await database.ref("users/" + userId + "/culturas").get();
     var loadedCulturas = culturasRef.val();
-    setCulturas(loadedCulturas)
+    setCulturas(loadedCulturas);
+    return loadedCulturas;
   }
 
   return (
-    <CulturaContext.Provider value={{ culturas, createCultura, removeCultura, updateCultura, loadCulturas }}>
+    <CulturaContext.Provider
+      value={{
+        culturas,
+        createCultura,
+        removeCultura,
+        updateCultura,
+        loadCulturas,
+      }}
+    >
       {props.children}
     </CulturaContext.Provider>
   );
