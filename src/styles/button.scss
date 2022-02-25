@@ -12,10 +12,9 @@
     transition: filter 0.2s;
     cursor: pointer;
     border: 0;
-    // margin: 20px;
 
 
-    // isso pode ser removido pois nao terei botao desabilitado
+    // isso pode ser removido pois nao terei botao desabilitado?
     &:not(:disabled):hover {
         filter: brightness(0.9);
     }
@@ -24,10 +23,6 @@
         cursor: not-allowed;
     }
 }
-// .iconButton {
-//     margin: 5px;
-//     display: flex;
-// }
 
 .buttonAdicionarCultura {
     display: flex;

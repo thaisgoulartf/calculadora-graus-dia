@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Cultura } from "../contexts/CulturaContext";
 
 export function calculateGrausDias(avgTemp: number[], basalTemp: number, thermalSum: number) {

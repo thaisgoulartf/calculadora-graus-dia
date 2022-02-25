@@ -3,12 +3,11 @@ import { Link, useHistory } from "react-router-dom";
 
 import alface from "../assets/images/alface.png";
 import { Button } from "../components/Button";
-import { useAuth } from "../hooks/useAuth";
 
 import { uid } from "uid";
 
 import "../styles/autenticacao.scss";
-import { calculate, calculateGrausDias } from "../util/function_utils";
+import { calculateGrausDias } from "../util/function_utils";
 import { getWeatherToday } from "../services/consultaWeatherToday";
 import { useCultura } from "../hooks/useCulture";
 

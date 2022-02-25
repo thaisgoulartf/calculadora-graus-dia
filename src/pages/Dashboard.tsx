@@ -15,14 +15,12 @@ import { useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
 // import { Cultura } from "./NovaCultura";
-import { Cultura } from "../contexts/CulturaContext";
 import { useCultura } from "../hooks/useCulture";
 import { calculate } from "../util/function_utils";
 
 // import { ThumbsUpIcon } from 'react-line-awesome'
 
 export function Dashboard() {
-  const { user } = useAuth();
   const history = useHistory();
   const { culturas } = useCultura();
 

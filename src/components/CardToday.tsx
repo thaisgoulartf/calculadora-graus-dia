@@ -19,18 +19,6 @@ interface Tempo {
 export function CardToday(props: any) {
   const [card, setCard] = useState<Tempo>();
 
-  // function fetchTempoAgora() {
-  //   getTempoAgora().then(setUser);
-  // }
-
-  // useEffect(() => {
-  //   fetchTempoAgora();
-  // }, []);
-
-  //   const RadioWrapper = styled.div`
-  //   color: ${props => props.color}
-  // `
-
   useEffect(() => {
     getWeatherToday().then((data) => {
       setCard(data);

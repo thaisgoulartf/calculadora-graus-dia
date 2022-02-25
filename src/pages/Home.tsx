@@ -6,8 +6,7 @@ import { Button } from "../components/Button";
 
 import "../styles/autenticacao.scss";
 import { useAuth } from "../hooks/useAuth";
-import { FormEvent, useEffect, useState } from "react";
-import { auth, database } from "../services/firebase";
+import { FormEvent, useState } from "react";
 import { useCultura } from "../hooks/useCulture";
 
 export function Home() {

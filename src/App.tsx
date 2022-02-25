@@ -13,7 +13,6 @@ function App() {
     <BrowserRouter>
       <AuthContextProvider>
         <CulturaContextProvider>
-          {/* {/* mudar pra Home login depois de criar landpage */}
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/cadastro" exact component={Cadastro} />
@@ -21,7 +20,6 @@ function App() {
             <Route path="/dashboard" exact component={Dashboard} />
             <Route path="/novaCulturaModal" exact component={ModalNovaCultura} />
           </Switch>
-          {/* <Route path="/consultas" component={Consultas} /> */}
         </CulturaContextProvider>
       </AuthContextProvider>
     </BrowserRouter>

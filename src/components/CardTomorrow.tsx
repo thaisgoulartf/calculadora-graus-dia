@@ -19,18 +19,6 @@ interface Days {
 export function CardTomorrow(props: any) {
   const [card, setCard] = useState<Tempo>();
 
-  // function fetchTempoAgora() {
-  //   getTempoAgora().then(setUser);
-  // }
-
-  // useEffect(() => {
-  //   fetchTempoAgora();
-  // }, []);
-
-  //   const RadioWrapper = styled.div`
-  //   color: ${props => props.color}
-  // `
-
   useEffect(() => {
     getWeatherTomorrow().then((data) => {
       setCard(data);

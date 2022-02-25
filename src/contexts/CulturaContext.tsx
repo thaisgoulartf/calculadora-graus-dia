@@ -46,7 +46,7 @@ export function CulturaContextProvider(props: CulturaContextProviderProps) {
     var indexToRemove = -1;
     if (culturas) {
       culturas.forEach((currentCultura, index) => {
-        if (currentCultura.id == culturaId) indexToRemove = index;
+        if (currentCultura.id === culturaId) indexToRemove = index;
       })
       if (indexToRemove > -1)
         culturas.splice(indexToRemove, 1);
@@ -59,7 +59,7 @@ export function CulturaContextProvider(props: CulturaContextProviderProps) {
     var culturasValue = culturas
     if (culturasValue) {
       culturasValue.forEach((currentCultura, index) => {
-        if (currentCultura.id == cultura.id) {
+        if (currentCultura.id === cultura.id) {
           culturasValue![index] = cultura;
         }
       })

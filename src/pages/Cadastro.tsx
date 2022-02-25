@@ -1,12 +1,9 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import alface from "../assets/images/alface.png";
 import { Button } from "../components/Button";
 import { useAuth } from "../hooks/useAuth";
-import { auth, database } from "../services/firebase";
-
-import { uid } from "uid";
 
 // import { useAuth } from '../hooks/user'
 
