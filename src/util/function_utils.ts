@@ -30,10 +30,10 @@ export function convertToOneDecimalPlace(value: number) {
     return +value.toFixed(1)
 }
 
-export function getCurrentCultura(culturas: Cultura[], culturaId: string): Cultura | undefined {
+export function getSpecificCultura(culturas: Cultura[], culturaId: string): Cultura | undefined {
     var cultura: Cultura | undefined
     culturas.forEach((currentCultura) => {
-        if (currentCultura.id === culturaId) {
+        if (currentCultura.id == culturaId) {
             cultura = currentCultura
             return
         }

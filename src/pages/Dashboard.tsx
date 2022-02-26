@@ -8,15 +8,20 @@ import "../styles/sidebar.scss";
 import milho from "../assets/images/corn-aside.png";
 import { FaBars } from "react-icons/fa";
 import { FiPlus } from "react-icons/fi";
-
 import { CultureTab } from "../components/CultureTab";
 import { Button } from "../components/Button";
 import { useHistory } from "react-router-dom";
 import { useCultura } from "../hooks/useCulture";
+import { useCurrentCultura } from "../hooks/useCurrentCultura";
 
 export function Dashboard() {
   const history = useHistory();
   const { culturas } = useCultura();
+  const { currentCultura, updateCurrentCultura } = useCurrentCultura();
+
+  if (culturas && culturas.length > 0) {
+    if (!currentCultura) updateCurrentCultura(culturas[0]);
+  }
 
   async function navigateToCreateNovaCulturaModal() {
     history.push("/novaCulturaModal");
@@ -34,7 +39,7 @@ export function Dashboard() {
         </div>
         <div className="buttonAdicionarCultura">
           <Button type="button" onClick={navigateToCreateNovaCulturaModal}>
-            <div>{<FiPlus />}</div>
+            <div className="iconButton">{<FiPlus />}</div>
             <span>Adicionar Cultura</span>
           </Button>
         </div>

@@ -11,31 +11,42 @@ import {
   YAxis,
 } from "recharts";
 import { useEffect, useState } from "react";
-import { useCultura } from "../hooks/useCulture";
 import { getGraphData, GraphData } from "../util/GraphBuilder";
+import { useCurrentCultura } from "../hooks/useCurrentCultura";
+
+type ParsedData = {
+  data: string;
+  chuva: number;
+  temp: number;
+  gd: number;
+};
 
 export function Grafico() {
-  const { culturas } = useCultura();
+  const { currentCultura } = useCurrentCultura();
   const [data, setData] = useState<GraphData>();
+  const [parsedData, setParsedData] = useState<ParsedData[]>();
 
   useEffect(() => {
     getData().then((data) => {
       setData(data);
+      setParsedData(
+        data?.days.map((day) => {
+          return {
+            data: day.day.toISOString().split("T")[0],
+            chuva: day.precip,
+            temp: day.avgTemp,
+            gd: day.accumulatedGrausDias,
+          };
+        })
+      );
     });
-  }, []);
-
-  const dataTest = data?.days.map((day) => {
-    return {
-      data: day.day.toISOString().split("T")[0],
-      chuva: day.precip,
-      temp: day.avgTemp,
-      gd: day.accumulatedGrausDias,
-    };
-  });
+  }, [currentCultura]);
 
   async function getData() {
-    const graphData = await getGraphData(culturas![0]);
-    return graphData;
+    if (currentCultura) {
+      const graphData = await getGraphData(currentCultura);
+      return graphData;
+    }
   }
 
   return (
@@ -44,7 +55,7 @@ export function Grafico() {
         <ComposedChart
           width={1200}
           height={400}
-          data={dataTest}
+          data={parsedData}
           margin={{
             top: 20,
             right: 20,
@@ -57,11 +68,9 @@ export function Grafico() {
           <YAxis scale="linear" />
           <Tooltip />
           <Legend />
-          {/* <Area type="monotone" dataKey="amt" fill="#8884d8" stroke="#8884d8" /> */}
           <Bar dataKey="chuva" barSize={20} fill="#413ea0" />
           <Line type="monotone" dataKey="gd" stroke="#ff7300" />
           <Line type="monotone" dataKey="temp" stroke="#ff7300" />
-          {/* <Scatter dataKey="cnt" fill="red" /> */}
         </ComposedChart>
       </ResponsiveContainer>
     </section>
