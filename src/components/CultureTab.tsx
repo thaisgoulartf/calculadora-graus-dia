@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { GiCorn } from "react-icons/gi";
-import "../styles/button.scss";
 import "../styles/culturetabs.scss";
 import { BsTrash } from "react-icons/bs";
 import { BiEditAlt } from "react-icons/bi";
@@ -18,7 +17,6 @@ export function CultureTab(props: CulturaProps) {
   const history = useHistory();
 
   function handleDeleteCultura() {
-    console.log(props.cultura);
     removeCultura(props.cultura.id);
     history.push("/dashboard");
   }
@@ -30,19 +28,19 @@ export function CultureTab(props: CulturaProps) {
   return (
     <div
       className={`container ${isActive ? "active" : null}`}
-      // onClick={() => setIsActive((prevState) => !prevState)}
+      onClick={(e) => setIsActive((state) => !state)}
     >
       <div>
         {<GiCorn />}
-        <span className="labelCultura">{props.cultura.descricao}</span>
+        <span>{props.cultura.descricao}</span>
       </div>
-      <div>
-        <button className="edit" onClick={handleUpdateCultura}>
+      <div className="containerActions">
+        <div className="edit" onClick={handleUpdateCultura}>
           <BiEditAlt />
-        </button>
-        <button className="trash" onClick={handleDeleteCultura}>
+        </div>
+        <div className="trash" onClick={handleDeleteCultura}>
           <BsTrash />
-        </button>
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,3 @@
-import { useCultura } from "../hooks/useCulture";
-
 export async function getGrafico(city?: string, firstDay?: string, lastDay?: string) {
   const privateKey = "AXQA82N32LPULYZQLZJNUUAFF";
 
@@ -8,7 +6,6 @@ export async function getGrafico(city?: string, firstDay?: string, lastDay?: str
   );
 
   const data = await response.json();
-  console.log(data)
   return data;
 }
 

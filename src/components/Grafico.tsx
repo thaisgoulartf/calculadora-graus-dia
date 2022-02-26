@@ -15,7 +15,6 @@ import { useCultura } from "../hooks/useCulture";
 import { getGraphData, GraphData } from "../util/GraphBuilder";
 
 export function Grafico() {
-  //Teste
   const { culturas } = useCultura();
   const [data, setData] = useState<GraphData>();
 
@@ -36,7 +35,6 @@ export function Grafico() {
 
   async function getData() {
     const graphData = await getGraphData(culturas![0]);
-    console.log(graphData);
     return graphData;
   }
 

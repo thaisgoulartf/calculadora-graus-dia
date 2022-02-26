@@ -1,14 +1,14 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import alface from "../assets/images/alface.png";
 import { Button } from "../components/Button";
 import { useAuth } from "../hooks/useAuth";
+import { auth } from "../services/firebase";
 
 // import { useAuth } from '../hooks/user'
 
 import "../styles/autenticacao.scss";
-import { calculateGrausDias } from "../util/function_utils";
 
 export function Cadastro() {
   const { user, signUpWithEmailAndPassword } = useAuth();
@@ -19,29 +19,20 @@ export function Cadastro() {
   const history = useHistory();
 
   async function handleRegister(event: FormEvent) {
-    event.preventDefault()
+    event.preventDefault();
 
     signUpWithEmailAndPassword(name, email, password);
 
     history.goBack();
   }
 
-  // useEffect(() => {
-  //   auth.onAuthStateChanged((user) => {
-  //     if (!user) {
-  //       history.push("/home");
-  //     }
-  //   });
-  // });
-
-  function onCalculateGrausDias(event: FormEvent) {
-    event.preventDefault();
-
-    console.log("asd");
-    const avgTemp = [25, 24, 26, 21, 20];
-    const grausDias = calculateGrausDias(avgTemp, 10, 900);
-    console.log(grausDias);
-  }
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (!user) {
+        history.push("/home");
+      }
+    });
+  });
 
   return (
     <div id="page-auth">

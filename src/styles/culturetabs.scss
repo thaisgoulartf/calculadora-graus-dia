@@ -3,12 +3,27 @@
   justify-content: space-between;
   padding: 0.5rem;
   margin-bottom: 0.5rem;
-
   color: white;
-
   border-radius: 80px;
 }
 
-// .container:active {
-//   background: red;
-// }
+.container:active {
+  background-color: #fff;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  color: black;
+  border-radius: 30px 0px 0px 30px;
+}
+
+.containerActions {
+  display: flex;
+}
+
+.edit {
+  margin-right: 0.5rem;
+  font-size: 115%;
+}
+
+.trash {
+  font-size: 115%;
+}

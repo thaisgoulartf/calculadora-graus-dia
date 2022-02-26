@@ -1,27 +1,16 @@
 import "../styles/modal.scss";
 
 import React, { FormEvent, useState } from "react";
-import { Link, useHistory, useLocation, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { Button } from "../components/Button";
-import { useAuth } from "../hooks/useAuth";
-import { auth, database } from "../services/firebase";
-import { uid } from "uid";
 import { useCultura } from "../hooks/useCulture";
-import { Cultura } from "../contexts/CulturaContext";
 import { getCurrentCultura } from "../util/function_utils";
 
 export function ModalEditCultura() {
-  const usuarioAtual = auth.currentUser?.uid;
   const { culturas, createCultura, updateCultura } = useCultura();
-  // const isEditing = props.cultura != undefined
-  // const location = useLocation();
-  // console.log(props)
-  // console.log(props.cultura)
-  // console.log(isEditing)
   const { id } = useParams<{ id: string }>();
   const cultura = getCurrentCultura(culturas!, id);
 
-  const { user } = useAuth();
   const [planta, setPlanta] = useState(cultura?.planta);
   const [descricao, setDescricao] = useState(cultura?.descricao);
   const [dataInicio, setDataInicio] = useState(cultura?.dataInicio);

@@ -7,9 +7,8 @@ import { Button } from "../components/Button";
 import { uid } from "uid";
 
 import "../styles/autenticacao.scss";
-import { calculateGrausDias } from "../util/function_utils";
-import { getWeatherToday } from "../services/consultaWeatherToday";
 import { useCultura } from "../hooks/useCulture";
+import { auth } from "../services/firebase";
 
 export function NovaCultura() {
   const [planta, setPlanta] = useState("");
@@ -20,45 +19,29 @@ export function NovaCultura() {
 
   const { createCultura } = useCultura();
 
-  // useEffect(() => {
-  //   navigator.geolocation.getCurrentPosition((position) => {
-  //     console.log(position.coords.latitude, position.coords.longitude);
-  //   });
-  // }, []);
-
   async function handleCreateCultura(event: FormEvent) {
     event.preventDefault();
 
-    createCultura({ id: uid(), dataInicio: dataInicio, descricao: descricao, localizacao: localizacao, planta: planta, });
-    // removeCultura('3');
-    // updateCultura({ id: '2', dataInicio: dataInicio, descricao: descricao, localizacao: localizacao, planta: planta, });
+    createCultura({
+      id: uid(),
+      dataInicio: dataInicio,
+      descricao: descricao,
+      localizacao: localizacao,
+      planta: planta,
+    });
 
     history.push("/dashboard");
   }
 
-  // async function handleSingleOut() {
-  //   auth
-  //     .signOut()
-  //     .then(() => {
-  //       history.push("/");
-  //     })
-  //     .catch((err) => {
-  //       alert(err.message);
-  //     });
-  // }
-
-  function onCalculateGrausDias(event: FormEvent) {
-    event.preventDefault();
-
-    console.log("asd");
-    const avgTemp = [25, 24, 26, 21, 20];
-    const grausDias = calculateGrausDias(avgTemp, 10, 900);
-    console.log(grausDias);
-  }
-
-  async function testeAxios(event: FormEvent) {
-    event.preventDefault();
-    console.log(await getWeatherToday());
+  async function handleSingleOut() {
+    auth
+      .signOut()
+      .then(() => {
+        history.push("/");
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
   }
 
   return (
@@ -76,7 +59,6 @@ export function NovaCultura() {
               id="culturas"
               name="culturas"
               placeholder="Cultura"
-              // ref={register}
               onChange={(event) => setPlanta(event.target.value)}
               value={planta}
             >
@@ -90,7 +72,6 @@ export function NovaCultura() {
               type="text"
               placeholder="Descrição"
               name="descricao"
-              // ref={register}
               onChange={(event) => setDescricao(event.target.value)}
               value={descricao}
             />
@@ -100,7 +81,6 @@ export function NovaCultura() {
               type="date"
               placeholder="Data início"
               name="dataInicio"
-              // ref={register}
               onChange={(event) => setDataInicio(event.target.value)}
               value={dataInicio}
             />
@@ -110,7 +90,6 @@ export function NovaCultura() {
               type="text"
               placeholder="Localização"
               name="localizacao"
-              // ref={register}
               onChange={(event) => setLocalizacao(event.target.value)}
               value={localizacao}
             />

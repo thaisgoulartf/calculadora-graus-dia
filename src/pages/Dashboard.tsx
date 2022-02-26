@@ -12,28 +12,14 @@ import { FiPlus } from "react-icons/fi";
 import { CultureTab } from "../components/CultureTab";
 import { Button } from "../components/Button";
 import { useHistory } from "react-router-dom";
-import { useEffect } from "react";
-import { useAuth } from "../hooks/useAuth";
-// import { Cultura } from "./NovaCultura";
 import { useCultura } from "../hooks/useCulture";
-import { calculate } from "../util/function_utils";
-
-// import { ThumbsUpIcon } from 'react-line-awesome'
 
 export function Dashboard() {
   const history = useHistory();
   const { culturas } = useCultura();
 
-  useEffect(() => {}, []);
-
   async function navigateToCreateNovaCulturaModal() {
     history.push("/novaCulturaModal");
-  }
-
-  async function testeCalculateGrausDias() {
-    if (culturas!) {
-      calculate(culturas![0]);
-    }
   }
 
   return (
@@ -48,23 +34,14 @@ export function Dashboard() {
         </div>
         <div className="buttonAdicionarCultura">
           <Button type="button" onClick={navigateToCreateNovaCulturaModal}>
-            <div className="iconButton">{<FiPlus />}</div>
+            <div>{<FiPlus />}</div>
             <span>Adicionar Cultura</span>
           </Button>
-          {/* <ButtonTeste /> */}
         </div>
         <div className="sidebar-menu">
           {culturas?.map((cultura) => (
             <CultureTab cultura={cultura} key={cultura.id} />
           ))}
-          {/* <li>
-              <a className="active">
-                <GiJellyBeans />
-                <span className="labelCultura">Feijão</span>
-                <span className="edit">{<BiEditAlt />}</span>
-                <span className="trash">{<BsTrash />}</span>
-              </a>
-            </li> */}
         </div>
       </div>
       <div className="main-content">

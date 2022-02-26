@@ -1,9 +1,8 @@
 import "../styles/modal.scss";
 
-import React, { FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Button } from "../components/Button";
-import { auth } from "../services/firebase";
 import { uid } from "uid";
 import { useCultura } from "../hooks/useCulture";
 import { Cultura } from "../contexts/CulturaContext";
@@ -13,9 +12,7 @@ interface ModalCulturaProps {
 }
 
 export function ModalNovaCultura(props: ModalCulturaProps) {
-  const usuarioAtual = auth.currentUser?.uid;
-  const isEditing = props.cultura !== undefined
-
+  const isEditing = props.cultura !== undefined;
 
   const [planta, setPlanta] = useState("");
   const [descricao, setDescricao] = useState("");
@@ -27,13 +24,25 @@ export function ModalNovaCultura(props: ModalCulturaProps) {
 
   async function handleCreateCultura(event: FormEvent) {
     event.preventDefault();
-    createCultura({ id: uid(), dataInicio: dataInicio, descricao: descricao, localizacao: localizacao, planta: planta, });
+    createCultura({
+      id: uid(),
+      dataInicio: dataInicio,
+      descricao: descricao,
+      localizacao: localizacao,
+      planta: planta,
+    });
     history.push("/dashboard");
   }
 
   async function handleUpdateCultura(event: FormEvent) {
     event.preventDefault();
-    updateCultura({ id: props.cultura?.id!, dataInicio: dataInicio, descricao: descricao, localizacao: localizacao, planta: planta, });
+    updateCultura({
+      id: props.cultura?.id!,
+      dataInicio: dataInicio,
+      descricao: descricao,
+      localizacao: localizacao,
+      planta: planta,
+    });
     history.push("/dashboard");
   }
 

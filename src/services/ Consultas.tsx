@@ -10,7 +10,6 @@ export function Consultas() {
     )
     .then((response) => console.log(response.data.days[0].temp))
     .catch((err) => console.error(err));
-  console.log(tempoAgora);
 
   return <div>Olá</div>;
 }

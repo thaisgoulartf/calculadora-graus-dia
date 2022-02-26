@@ -33,7 +33,7 @@ export function convertToOneDecimalPlace(value: number) {
 export function getCurrentCultura(culturas: Cultura[], culturaId: string): Cultura | undefined {
     var cultura: Cultura | undefined
     culturas.forEach((currentCultura) => {
-        if (currentCultura.id == culturaId) {
+        if (currentCultura.id === culturaId) {
             cultura = currentCultura
             return
         }
@@ -45,20 +45,13 @@ const defaultRange = 5
 
 export async function calculate(cultura: Cultura) {
     const startDate = new Date(cultura.dataInicio)
-    console.log(startDate.toISOString)
     const currentFinalDate = new Date(startDate.getTime() + (1000 * 60 * 60 * 24 * defaultRange))
-    console.log(currentFinalDate)
     const data = await getData(startDate, currentFinalDate)
     const dataTest: DataTest = data
-    console.log('dataTest: ' + dataTest)
     const avgTempList = getAvgTempList(dataTest)
-    console.log('avgTempList: ' + avgTempList)
     const grausDias = calculateGrausDias(avgTempList, 10, 900)
-    console.log('grausDias: ' + grausDias)
     const finalDate = new Date(startDate.getTime() + (1000 * 60 * 60 * 24 * grausDias.length))
-    console.log('finalDate: ' + finalDate)
     const graficoData: GraficoData = { avgTempList: avgTempList, grausDias: grausDias, lastDay: finalDate }
-    console.log(graficoData)
 }
 
 async function getData(startDate: Date, finalDate: Date) {
@@ -68,14 +61,12 @@ async function getData(startDate: Date, finalDate: Date) {
     const final = finalDate.toISOString().split('T')[0]
 
     const query = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/${start}/${final}?unitGroup=metric&include=days&key=${privateKey}&contentType=json`
-    console.log('query: ' + query)
     return result
 }
 
 function getAvgTempList(data: DataTest) {
     const days = data.days
     const avgTempList = days.map((day) => day.temp)
-    console.log('avgTempList: ' + avgTempList)
     return avgTempList
 }
 

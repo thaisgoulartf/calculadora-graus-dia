@@ -15,13 +15,7 @@ export async function getApiData(startDate: Date, finalDate: Date) {
   const final = finalDate.toISOString().split("T")[0];
 
   const query = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/${start}/${final}?unitGroup=metric&include=days&key=${privateKey}&contentType=json`;
-  console.log("query: " + query);
-  console.log(resultMock);
 
-  // const response = await fetch(query);
-  // const data = await response.json();
-
-  // return data;
   return resultMock;
 }
 

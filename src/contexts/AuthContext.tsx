@@ -11,8 +11,15 @@ type User = {
 type AuthContext = {
   user: User | undefined;
   signInWithGoogle: () => Promise<void>;
-  signUpWithEmailAndPassword: (username: string, email: string, password: string) => Promise<void>;
-  signInWithEmailAndPassword: (email: string, password: string) => Promise<void>;
+  signUpWithEmailAndPassword: (
+    username: string,
+    email: string,
+    password: string
+  ) => Promise<void>;
+  signInWithEmailAndPassword: (
+    email: string,
+    password: string
+  ) => Promise<void>;
 };
 
 type AuthContextProviderProps = {
@@ -62,16 +69,20 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
         id: uid,
         name: displayName,
         avatar: photoURL,
-        email
-      })
+        email,
+      });
     }
   }
 
-  async function signUpWithEmailAndPassword(username: string, email: string, password: string) {
-    const result = await auth.createUserWithEmailAndPassword(email, password)
+  async function signUpWithEmailAndPassword(
+    username: string,
+    email: string,
+    password: string
+  ) {
+    const result = await auth.createUserWithEmailAndPassword(email, password);
 
     if (result.user) {
-      await result.user.updateProfile({ displayName: username })
+      await result.user.updateProfile({ displayName: username });
       const { displayName, uid, email, photoURL } = result.user;
 
       if (!displayName) {
@@ -81,7 +92,7 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
   }
 
   async function signInWithEmailAndPassword(email: string, password: string) {
-    const result = await auth.signInWithEmailAndPassword(email, password)
+    const result = await auth.signInWithEmailAndPassword(email, password);
 
     if (result.user) {
       const { displayName, uid, email, photoURL } = result.user;
@@ -94,13 +105,20 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
         id: uid,
         name: displayName,
         avatar: photoURL,
-        email
-      })
+        email,
+      });
     }
   }
 
   return (
-    <AuthContext.Provider value={{ user, signInWithGoogle, signUpWithEmailAndPassword, signInWithEmailAndPassword }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        signInWithGoogle,
+        signUpWithEmailAndPassword,
+        signInWithEmailAndPassword,
+      }}
+    >
       {props.children}
     </AuthContext.Provider>
   );

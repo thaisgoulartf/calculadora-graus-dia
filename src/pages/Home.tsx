@@ -18,13 +18,9 @@ export function Home() {
 
   async function handleSignInWithGoogle(event: FormEvent) {
     event.preventDefault();
-    // if (!user) {
     await signInWithGoogle();
-    console.log(user);
     const culturas = await loadCulturas(user!.id);
-    // }
     history.push("/novaCultura");
-    console.log(culturas);
     if (culturas && culturas.length > 0) {
       history.push("/dashboard");
     } else {
@@ -34,36 +30,16 @@ export function Home() {
 
   async function handleSignIn(event: FormEvent) {
     event.preventDefault();
-    // if (!user) {
-    console.log("111");
     await signInWithEmailAndPassword(email, password);
     await loadCulturas(user!.id);
     history.push("/novaCultura");
     const culturas = await loadCulturas(user!.id);
-    console.log(culturas);
     if (culturas && culturas.length > 0) {
       history.push("/dashboard");
     } else {
       history.push("/novaCultura");
     }
   }
-
-  // useEffect(() => {
-  //   auth.onAuthStateChanged((user) => {
-  //     if (user) {
-  //       history.push("/novaCultura");
-  //     }
-  //   });
-  // });
-
-  // async function handleSignIn() {
-  //   auth
-  //     .signInWithEmailAndPassword(email, password)
-  //     .then(() => {
-  //       history.push("/novaCultura");
-  //     })
-  //     .catch((err) => alert(err.message));
-  // }
 
   return (
     <div id="page-auth">
