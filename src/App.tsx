@@ -19,11 +19,11 @@ function App() {
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/cadastro" component={Cadastro} />
-              <Route path="/novaCultura" component={NovaCultura} />
+              <Route path="/nova-cultura" component={NovaCultura} />
               <Route path="/dashboard" component={Dashboard} />
-              <Route path="/novaCulturaModal" component={ModalNovaCultura} />
+              <Route path="/nova-cultura-modal" component={ModalNovaCultura} />
               <Route
-                path="/editCulturaModal/:id"
+                path="/edit-cultura-modal/:id"
                 component={ModalEditCultura}
               />
             </Switch>

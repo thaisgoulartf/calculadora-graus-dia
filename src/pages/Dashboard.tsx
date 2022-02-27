@@ -1,5 +1,3 @@
-import { CardToday } from "../components/CardToday";
-import { CardTomorrow } from "../components/CardTomorrow";
 import { User } from "../components/User";
 import { Grafico } from "../components/Grafico";
 import "../styles/dashboard.scss";
@@ -11,12 +9,13 @@ import { FiPlus } from "react-icons/fi";
 import { CultureTab } from "../components/CultureTab";
 import { Button } from "../components/Button";
 import { useHistory } from "react-router-dom";
-import { useCultura } from "../hooks/useCulture";
 import { useCurrentCultura } from "../hooks/useCurrentCultura";
+import { useCulturaContext } from "../hooks/useCulturaContext";
+import { Day, ForecastCard } from "../components/ForecastCard";
 
 export function Dashboard() {
   const history = useHistory();
-  const { culturas } = useCultura();
+  const { culturas } = useCulturaContext();
   const { currentCultura, updateCurrentCultura } = useCurrentCultura();
 
   if (culturas && culturas.length > 0) {
@@ -24,7 +23,7 @@ export function Dashboard() {
   }
 
   async function navigateToCreateNovaCulturaModal() {
-    history.push("/novaCulturaModal");
+    history.push("/nova-cultura-modal");
   }
 
   return (
@@ -37,7 +36,7 @@ export function Dashboard() {
           </span>
           <h2>Calculadora Graus dias</h2>
         </div>
-        <div className="buttonAdicionarCultura">
+        <div>
           <Button type="button" onClick={navigateToCreateNovaCulturaModal}>
             <div className="iconButton">{<FiPlus />}</div>
             <span>Adicionar Cultura</span>
@@ -63,8 +62,8 @@ export function Dashboard() {
         </header>
         <main>
           <div className="card">
-            <CardToday day="Hoje" />
-            <CardTomorrow day="Amanhã" />
+            <ForecastCard day={Day.today} />
+            <ForecastCard day={Day.tomorrow} />
           </div>
           <div className="grafico">
             <Grafico />

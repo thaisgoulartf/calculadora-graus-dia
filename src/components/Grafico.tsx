@@ -23,12 +23,10 @@ type ParsedData = {
 
 export function Grafico() {
   const { currentCultura } = useCurrentCultura();
-  const [data, setData] = useState<GraphData>();
   const [parsedData, setParsedData] = useState<ParsedData[]>();
 
   useEffect(() => {
     getData().then((data) => {
-      setData(data);
       setParsedData(
         data?.days.map((day) => {
           return {

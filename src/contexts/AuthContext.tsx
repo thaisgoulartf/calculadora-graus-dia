@@ -29,15 +29,15 @@ type AuthContextProviderProps = {
 export const AuthContext = createContext({} as AuthContext);
 
 export function AuthContextProvider(props: AuthContextProviderProps) {
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState({} as User);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         const { displayName, photoURL, uid, email } = user;
 
-        if (!displayName) {
-          throw new Error("Falta conta do Google");
+        if (!displayName || !photoURL) {
+          throw new Error("Falta informações na conta do Google");
         }
 
         setUser({

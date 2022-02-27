@@ -4,8 +4,8 @@ import { FormEvent, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Button } from "../components/Button";
 import { uid } from "uid";
-import { useCultura } from "../hooks/useCulture";
 import { Cultura } from "../contexts/CulturaContext";
+import { useCulturaContext } from "../hooks/useCulturaContext";
 
 interface ModalCulturaProps {
   cultura: Cultura | undefined;
@@ -20,7 +20,7 @@ export function ModalNovaCultura(props: ModalCulturaProps) {
   const [localizacao, setLocalizacao] = useState("");
   const history = useHistory();
 
-  const { createCultura, updateCultura } = useCultura();
+  const { createCultura, updateCultura } = useCulturaContext();
 
   async function handleCreateCultura(event: FormEvent) {
     event.preventDefault();

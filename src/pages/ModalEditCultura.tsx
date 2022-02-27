@@ -3,16 +3,16 @@ import "../styles/modal.scss";
 import React, { FormEvent, useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { Button } from "../components/Button";
-import { useAuth } from "../hooks/useAuth";
-import { useCultura } from "../hooks/useCulture";
+import { useAuthContext } from "../hooks/useAuthContext";
+import { useCulturaContext } from "../hooks/useCulturaContext";
 import { getSpecificCultura } from "../util/function_utils";
 
 export function ModalEditCultura() {
-  const { culturas, createCultura, updateCultura } = useCultura();
+  const { culturas, createCultura, updateCultura } = useCulturaContext();
   const { id } = useParams<{ id: string }>();
   const cultura = getSpecificCultura(culturas!, id);
 
-  const { user } = useAuth();
+  const { user } = useAuthContext();
   const [planta, setPlanta] = useState(cultura?.planta);
   const [descricao, setDescricao] = useState(cultura?.descricao);
   const [dataInicio, setDataInicio] = useState(cultura?.dataInicio);

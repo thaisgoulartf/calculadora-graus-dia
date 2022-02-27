@@ -7,8 +7,8 @@ import { Button } from "../components/Button";
 import { uid } from "uid";
 
 import "../styles/autenticacao.scss";
-import { useCultura } from "../hooks/useCulture";
 import { auth } from "../services/firebase";
+import { useCulturaContext } from "../hooks/useCulturaContext";
 
 export function NovaCultura() {
   const [planta, setPlanta] = useState("");
@@ -17,7 +17,7 @@ export function NovaCultura() {
   const [localizacao, setLocalizacao] = useState("");
   const history = useHistory();
 
-  const { createCultura } = useCultura();
+  const { createCultura } = useCulturaContext();
 
   async function handleCreateCultura(event: FormEvent) {
     event.preventDefault();

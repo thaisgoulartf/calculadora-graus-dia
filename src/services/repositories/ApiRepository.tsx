@@ -1,4 +1,7 @@
+import axios from "axios";
+
 export type ApiData = {
+  resolvedAddress?: string;
   days: ApiDay[];
 };
 
@@ -16,7 +19,26 @@ export async function getApiData(startDate: Date, finalDate: Date) {
 
   const query = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}/${start}/${final}?unitGroup=metric&include=days&key=${privateKey}&contentType=json`;
 
+  // TODO Descomentar para utilizar dados reais da API
+  // const response = await fetch(query);
+  // const data = await response.json();
+
+  // return data;
+
   return resultMock;
+}
+
+export async function getWeatherTodayOrTomorrow(isToday: boolean) {
+  try {
+    const dayParam = isToday ? "today" : "tomorrow";
+    const response = await axios.get(
+      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Florianopolis/${dayParam}?unitGroup=metric&include=current&key=AXQA82N32LPULYZQLZJNUUAFF&contentType=json`
+    );
+    const data: ApiData = await response.data;
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 const compressedResultMock = {

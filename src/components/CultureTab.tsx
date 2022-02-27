@@ -5,19 +5,20 @@ import "../styles/culturetabs.scss";
 import { BsTrash } from "react-icons/bs";
 import { BiEditAlt } from "react-icons/bi";
 import { Cultura } from "../contexts/CulturaContext";
-import { useAuth } from "../hooks/useAuth";
-import { useCultura } from "../hooks/useCulture";
+
 import { useHistory } from "react-router-dom";
 import { getSpecificCultura } from "../util/function_utils";
 import { useCurrentCultura } from "../hooks/useCurrentCultura";
+import { useAuthContext } from "../hooks/useAuthContext";
+import { useCulturaContext } from "../hooks/useCulturaContext";
 
 interface CulturaProps {
   cultura: Cultura;
 }
 
 export function CultureTab(props: CulturaProps) {
-  const { user } = useAuth();
-  const { culturas, removeCultura, updateCultura } = useCultura();
+  const { user } = useAuthContext();
+  const { culturas, removeCultura, updateCultura } = useCulturaContext();
   const { currentCultura, updateCurrentCultura, checkCurrentCulturaRemoved } =
     useCurrentCultura();
   const [isActive, setIsActive] = useState(
@@ -44,7 +45,7 @@ export function CultureTab(props: CulturaProps) {
   }
 
   function handleUpdateCultura() {
-    history.push("/editCulturaModal/" + props.cultura.id);
+    history.push("/edit-cultura-modal/" + props.cultura.id);
   }
 
   function setAsCurrentCultura() {

@@ -3,15 +3,13 @@ import { Link, useHistory } from "react-router-dom";
 
 import alface from "../assets/images/alface.png";
 import { Button } from "../components/Button";
-import { useAuth } from "../hooks/useAuth";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { auth } from "../services/firebase";
-
-// import { useAuth } from '../hooks/user'
 
 import "../styles/autenticacao.scss";
 
 export function Cadastro() {
-  const { user, signUpWithEmailAndPassword } = useAuth();
+  const { user, signUpWithEmailAndPassword } = useAuthContext();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

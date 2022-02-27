@@ -5,26 +5,27 @@ import googleIcon from "../assets/images/googleIcon.svg";
 import { Button } from "../components/Button";
 
 import "../styles/autenticacao.scss";
-import { useAuth } from "../hooks/useAuth";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { FormEvent, useState } from "react";
-import { useCultura } from "../hooks/useCulture";
+import { useCulturaContext } from "../hooks/useCulturaContext";
 
 export function Home() {
   const history = useHistory();
-  const { user, signInWithGoogle, signInWithEmailAndPassword } = useAuth();
+  const { user, signInWithGoogle, signInWithEmailAndPassword } =
+    useAuthContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { loadCulturas } = useCultura();
+  const { loadCulturas } = useCulturaContext();
 
   async function handleSignInWithGoogle(event: FormEvent) {
     event.preventDefault();
     await signInWithGoogle();
     const culturas = await loadCulturas(user!.id);
-    history.push("/novaCultura");
+    history.push("/nova-cultura");
     if (culturas && culturas.length > 0) {
       history.push("/dashboard");
     } else {
-      history.push("/novaCultura");
+      history.push("/nova-cultura");
     }
   }
 
@@ -32,12 +33,12 @@ export function Home() {
     event.preventDefault();
     await signInWithEmailAndPassword(email, password);
     await loadCulturas(user!.id);
-    history.push("/novaCultura");
+    history.push("/nova-cultura");
     const culturas = await loadCulturas(user!.id);
     if (culturas && culturas.length > 0) {
       history.push("/dashboard");
     } else {
-      history.push("/novaCultura");
+      history.push("/nova-cultura");
     }
   }
 

@@ -9,12 +9,6 @@ export type Cultura = {
   localizacao: string;
 };
 
-type Planta = {
-  nome: string;
-  tempBasal: number;
-  gd: number;
-};
-
 type CulturaContextType = {
   culturas: Cultura[] | undefined;
   createCultura: (cultura: Cultura) => Promise<void>;
