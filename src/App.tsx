@@ -1,34 +1,37 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import { NovaCultura } from "./pages/NovaCultura";
-import { Home } from "./pages/Home";
+
+import { Login } from "./pages/Login";
 import { Dashboard } from "./pages/Dashboard";
 import { AuthContextProvider } from "./contexts/AuthContext";
-import { ModalNovaCultura } from "./pages/ModalNovaCultura";
-import { Cadastro } from "./pages/Cadastro";
-import { CulturaContextProvider } from "./contexts/CulturaContext";
-import { ModalEditCultura } from "./pages/ModalEditCultura";
-import { CurrentCulturaContextProvider } from "./contexts/CurrentCulturaContext";
+import { Register } from "./pages/Register";
+
+
+import { NewCulture } from "./pages/NewCulture";
+import { NewCultureModal } from "./pages/NewCultureModal";
+import { CultureContextProvider } from "./contexts/CultureContext";
+import { CurrentCultureContextProvider } from "./contexts/CurrentCultureContext";
+import { EditCultureModal } from "./pages/EditCultureModal";
 
 function App() {
   return (
     <BrowserRouter>
       <AuthContextProvider>
-        <CulturaContextProvider>
-          <CurrentCulturaContextProvider>
+        <CultureContextProvider>
+          <CurrentCultureContextProvider>
             <Switch>
-              <Route path="/" exact component={Home} />
-              <Route path="/cadastro" component={Cadastro} />
-              <Route path="/nova-cultura" component={NovaCultura} />
+              <Route path="/" exact component={Login} />
+              <Route path="/cadastro" component={Register} />
+              <Route path="/nova-cultura" component={NewCulture} />
               <Route path="/dashboard" component={Dashboard} />
-              <Route path="/nova-cultura-modal" component={ModalNovaCultura} />
+              <Route path="/nova-cultura-modal" component={NewCultureModal} />
               <Route
                 path="/edit-cultura-modal/:id"
-                component={ModalEditCultura}
+                component={EditCultureModal}
               />
             </Switch>
-          </CurrentCulturaContextProvider>
-        </CulturaContextProvider>
+          </CurrentCultureContextProvider>
+        </CultureContextProvider>
       </AuthContextProvider>
     </BrowserRouter>
   );

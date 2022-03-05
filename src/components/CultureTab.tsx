@@ -4,55 +4,54 @@ import "../styles/button.scss";
 import "../styles/culturetabs.scss";
 import { BsTrash } from "react-icons/bs";
 import { BiEditAlt } from "react-icons/bi";
-import { Cultura } from "../contexts/CulturaContext";
 
 import { useHistory } from "react-router-dom";
-import { getSpecificCultura } from "../util/function_utils";
-import { useCurrentCultura } from "../hooks/useCurrentCultura";
-import { useAuthContext } from "../hooks/useAuthContext";
-import { useCulturaContext } from "../hooks/useCulturaContext";
+import { getSpecificCulture } from "../util/function_utils";
+import { useCurrentCulture } from "../hooks/useCurrentCulture";
+import { useCultureContext } from "../hooks/useCultureContext";
+import { Culture } from "../contexts/CultureContext";
 
-interface CulturaProps {
-  cultura: Cultura;
+interface CultureProps {
+  culture: Culture;
 }
 
-export function CultureTab(props: CulturaProps) {
-  const { user } = useAuthContext();
-  const { culturas, removeCultura, updateCultura } = useCulturaContext();
-  const { currentCultura, updateCurrentCultura, checkCurrentCulturaRemoved } =
-    useCurrentCultura();
+export function CultureTab(props: CultureProps) {
+  const { cultures, removeCulture } = useCultureContext();
+  const { currentCulture, updateCurrentCulture, checkCurrentCultureRemoved } =
+    useCurrentCulture();
   const [isActive, setIsActive] = useState(
-    props.cultura.id === currentCultura?.id
+    props.culture.id === currentCulture?.id
   );
   const history = useHistory();
 
   useEffect(() => {
-    if (props.cultura.id == currentCultura?.id) {
+    if (!currentCulture) return;
+    if (props.culture.id == currentCulture.id) {
       updateIsActive(true);
     } else {
       updateIsActive(false);
     }
-  }, [currentCultura, isActive]);
+  }, [currentCulture]);
 
-  async function handleDeleteCultura() {
-    await removeCultura(props.cultura.id);
-    const wasCurrentRemoved = checkCurrentCulturaRemoved(props.cultura.id);
-    const alreadyHasCultura = culturas && culturas.length > 0;
-    if (wasCurrentRemoved && alreadyHasCultura) {
-      updateCurrentCultura(culturas[0]);
+  async function handleDeleteCulture() {
+    await removeCulture(props.culture.id);
+    const wasCurrentRemoved = checkCurrentCultureRemoved(props.culture.id);
+    const alreadyHasCulture = cultures && cultures.length > 0;
+    if (wasCurrentRemoved && alreadyHasCulture) {
+      updateCurrentCulture(cultures[0]);
     }
     history.push("/dashboard");
   }
 
-  function handleUpdateCultura() {
-    history.push("/edit-cultura-modal/" + props.cultura.id);
+  function handleUpdateCulture() {
+    history.push("/edit-cultura-modal/" + props.culture.id);
   }
 
-  function setAsCurrentCultura() {
-    if (culturas) {
-      const thisCultura = getSpecificCultura(culturas, props.cultura.id);
-      if (thisCultura) {
-        updateCurrentCultura(thisCultura);
+  function setAsCurrentCulture() {
+    if (cultures) {
+      const thisCulture = getSpecificCulture(cultures, props.culture.id);
+      if (thisCulture) {
+        updateCurrentCulture(thisCulture);
         updateIsActive(true);
       }
     }
@@ -65,17 +64,27 @@ export function CultureTab(props: CulturaProps) {
   return (
     <div
       className={`container ${isActive ? "active" : null}`}
-      onClick={() => setAsCurrentCultura()}
+      onClick={() => setAsCurrentCulture()}
     >
       <div>
         {<GiCorn />}
-        <span className="labelCultura">{props.cultura.descricao}</span>
+        <span className="labelCultura" data-test="label-description-cultura">
+          {props.culture.description}
+        </span>
       </div>
       <div className="containerActions">
-        <div className="edit" onClick={handleUpdateCultura}>
+        <div
+          className="edit"
+          data-test="button-edit"
+          onClick={handleUpdateCulture}
+        >
           <BiEditAlt />
         </div>
-        <div className="trash" onClick={handleDeleteCultura}>
+        <div
+          className="trash"
+          data-test="button-delete"
+          onClick={handleDeleteCulture}
+        >
           <BsTrash />
         </div>
       </div>

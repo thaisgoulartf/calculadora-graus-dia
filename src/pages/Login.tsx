@@ -7,22 +7,21 @@ import { Button } from "../components/Button";
 import "../styles/autenticacao.scss";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { FormEvent, useState } from "react";
-import { useCulturaContext } from "../hooks/useCulturaContext";
+import { useCultureContext } from "../hooks/useCultureContext";
 
-export function Home() {
+export function Login() {
   const history = useHistory();
   const { user, signInWithGoogle, signInWithEmailAndPassword } =
     useAuthContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { loadCulturas } = useCulturaContext();
+  const { loadCultures } = useCultureContext();
 
   async function handleSignInWithGoogle(event: FormEvent) {
     event.preventDefault();
     await signInWithGoogle();
-    const culturas = await loadCulturas(user!.id);
-    history.push("/nova-cultura");
-    if (culturas && culturas.length > 0) {
+    const cultures = await loadCultures(user!.id);
+    if (cultures && cultures.length > 0) {
       history.push("/dashboard");
     } else {
       history.push("/nova-cultura");
@@ -32,10 +31,9 @@ export function Home() {
   async function handleSignIn(event: FormEvent) {
     event.preventDefault();
     await signInWithEmailAndPassword(email, password);
-    await loadCulturas(user!.id);
-    history.push("/nova-cultura");
-    const culturas = await loadCulturas(user!.id);
-    if (culturas && culturas.length > 0) {
+    await loadCultures(user!.id);
+    const cultures = await loadCultures(user!.id);
+    if (cultures && cultures.length > 0) {
       history.push("/dashboard");
     } else {
       history.push("/nova-cultura");
@@ -50,16 +48,18 @@ export function Home() {
       <main>
         <div className="content">
           <strong>Calculadora Graus dia</strong>
-          <p>Acompanhe sua plantação</p>
+          <p data-test="label-acompanhe-plantacao">Acompanhe sua plantação</p>
           <form onSubmit={handleSignIn}>
+            <label>Email:</label>
             <input
               type="text"
               placeholder="Email"
               onChange={(event) => setEmail(event.target.value)}
               value={email}
             />
+            <label>Senha:</label>
             <input
-              type="text"
+              type="password"
               placeholder="Senha"
               onChange={(event) => setPassword(event.target.value)}
               value={password}
@@ -73,10 +73,14 @@ export function Home() {
           </button>
           <footer>
             <div className="footer">
-              <p className="label1">Não tem conta? </p>
-              <Link className="label2" to="/cadastro">
-                {" "}
-                Cadastre-se{" "}
+              <p
+                className="label-without-account"
+                data-test="label-without-account"
+              >
+                Não tem conta?
+              </p>
+              <Link className="link-register" to="/cadastro">
+                Cadastre-se
               </Link>
             </div>
           </footer>

@@ -1,5 +1,5 @@
 import { User } from "../components/User";
-import { Grafico } from "../components/Grafico";
+import { Graph } from "../components/Graph";
 import "../styles/dashboard.scss";
 import "../styles/grafico.scss";
 import "../styles/sidebar.scss";
@@ -9,20 +9,23 @@ import { FiPlus } from "react-icons/fi";
 import { CultureTab } from "../components/CultureTab";
 import { Button } from "../components/Button";
 import { useHistory } from "react-router-dom";
-import { useCurrentCultura } from "../hooks/useCurrentCultura";
-import { useCulturaContext } from "../hooks/useCulturaContext";
+import { useCultureContext } from "../hooks/useCultureContext";
 import { Day, ForecastCard } from "../components/ForecastCard";
+import { useEffect } from "react";
+import { useCurrentCulture } from "../hooks/useCurrentCulture";
 
 export function Dashboard() {
   const history = useHistory();
-  const { culturas } = useCulturaContext();
-  const { currentCultura, updateCurrentCultura } = useCurrentCultura();
+  const { cultures } = useCultureContext();
+  const { currentCulture, updateCurrentCulture } = useCurrentCulture();
 
-  if (culturas && culturas.length > 0) {
-    if (!currentCultura) updateCurrentCultura(culturas[0]);
-  }
+  useEffect(() => {
+    if (cultures && cultures.length > 0) {
+      if (!currentCulture) updateCurrentCulture(cultures[0]);
+    }
+  }, []);
 
-  async function navigateToCreateNovaCulturaModal() {
+  async function navigateToCreateNovaCultureModal() {
     history.push("/nova-cultura-modal");
   }
 
@@ -37,20 +40,24 @@ export function Dashboard() {
           <h2>Calculadora Graus dias</h2>
         </div>
         <div>
-          <Button type="button" onClick={navigateToCreateNovaCulturaModal}>
+          <Button
+            type="button"
+            data-test="button-adicionar-cultura"
+            onClick={navigateToCreateNovaCultureModal}
+          >
             <div className="iconButton">{<FiPlus />}</div>
             <span>Adicionar Cultura</span>
           </Button>
         </div>
         <div className="sidebar-menu">
-          {culturas?.map((cultura) => (
-            <CultureTab cultura={cultura} key={cultura.id} />
+          {cultures?.map((culture) => (
+            <CultureTab culture={culture} key={culture.id} />
           ))}
         </div>
       </div>
       <div className="main-content">
         <header>
-          <h1>
+          <h1 data-test="label-dashboard">
             <label htmlFor="nav-toggle">
               <span>
                 <FaBars />
@@ -66,7 +73,7 @@ export function Dashboard() {
             <ForecastCard day={Day.tomorrow} />
           </div>
           <div className="grafico">
-            <Grafico />
+            <Graph />
           </div>
         </main>
       </div>

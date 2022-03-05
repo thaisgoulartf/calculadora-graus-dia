@@ -1,4 +1,4 @@
-import { Cultura } from "../contexts/CulturaContext";
+import { Culture } from "../contexts/CultureContext";
 import {
   ApiData,
   ApiDay,
@@ -17,21 +17,18 @@ export type GraphDay = {
   precip: number;
 };
 
-const defaultRange = 120;
+const defaultRange = 100;
 
-export async function getGraphData(cultura: Cultura) {
-  const startDate = new Date(cultura.dataInicio);
+export async function getGraphData(culture: Culture) {
+  const startDate = new Date(culture.startDate + 'T00:00:00');
   const currentFinalDate = new Date(
     startDate.getTime() + 1000 * 60 * 60 * 24 * defaultRange
   );
   const apiData: ApiData = await getApiData(startDate, currentFinalDate);
-  //TODO get basalTemp and thermalSum from Cultura type
-  const mockBasalTemp = 10;
-  const mockThermalSum = 900;
   const graphData = calculateGraphData(
     apiData.days,
-    mockBasalTemp,
-    mockThermalSum
+    culture.planta.basalTemp,
+    culture.planta.thermalSum
   );
   return graphData;
 }

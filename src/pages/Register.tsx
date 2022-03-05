@@ -8,7 +8,7 @@ import { auth } from "../services/firebase";
 
 import "../styles/autenticacao.scss";
 
-export function Cadastro() {
+export function Register() {
   const { user, signUpWithEmailAndPassword } = useAuthContext();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -27,7 +27,7 @@ export function Cadastro() {
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (!user) {
-        history.push("/home");
+        history.push("/login");
       }
     });
   });

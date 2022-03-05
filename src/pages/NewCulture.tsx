@@ -8,29 +8,33 @@ import { uid } from "uid";
 
 import "../styles/autenticacao.scss";
 import { auth } from "../services/firebase";
-import { useCulturaContext } from "../hooks/useCulturaContext";
+import { useCultureContext } from "../hooks/useCultureContext";
+import { plants } from "../util/plants";
 
-export function NovaCultura() {
+export function NewCulture() {
   const [planta, setPlanta] = useState("");
-  const [descricao, setDescricao] = useState("");
-  const [dataInicio, setDataInicio] = useState("");
-  const [localizacao, setLocalizacao] = useState("");
+  const [description, setDescription] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [localization, setLocalization] = useState("");
   const history = useHistory();
 
-  const { createCultura } = useCulturaContext();
+  const { createCulture } = useCultureContext();
 
-  async function handleCreateCultura(event: FormEvent) {
+  async function handleCreateCulture(event: FormEvent) {
     event.preventDefault();
 
-    createCultura({
-      id: uid(),
-      dataInicio: dataInicio,
-      descricao: descricao,
-      localizacao: localizacao,
-      planta: planta,
-    });
+    const plant = plants.find((element) => element.id === planta);
+    if (plant) {
+      createCulture({
+        id: uid(),
+        startDate: startDate,
+        description: description,
+        localization: localization,
+        planta: plant,
+      });
 
-    history.push("/dashboard");
+      history.push("/dashboard");
+    }
   }
 
   async function handleSingleOut() {
@@ -53,45 +57,48 @@ export function NovaCultura() {
         <div className="content">
           <strong>Calculadora Graus dia</strong>
           <p>Adicionar uma cultura</p>
-          <form onSubmit={handleCreateCultura}>
+          <form onSubmit={handleCreateCulture}>
             <label htmlFor="culturas">Cultura:</label>
             <select
-              id="culturas"
-              name="culturas"
+              id="cultures"
+              name="cultures"
               placeholder="Cultura"
               onChange={(event) => setPlanta(event.target.value)}
               value={planta}
             >
-              <option value="milho">Milho</option>
-              <option value="arroz">Arroz</option>
-              <option value="feijao">Feijão</option>
+              <option disabled selected value="">
+                Selecione uma opção
+              </option>
+              {plants.map((plant) => (
+                <option value={plant.id}>{plant.id}</option>
+              ))}
             </select>
-            <label htmlFor="descricao">Descrição:</label>
+            <label htmlFor="description">Descrição:</label>
             <input
-              id="descricao"
+              id="description"
               type="text"
               placeholder="Descrição"
-              name="descricao"
-              onChange={(event) => setDescricao(event.target.value)}
-              value={descricao}
+              name="description"
+              onChange={(event) => setDescription(event.target.value)}
+              value={description}
             />
-            <label htmlFor="dataInicio">Data ínicio da cultura:</label>
+            <label htmlFor="startDate">Data ínicio da cultura:</label>
             <input
-              id="dataInicio"
+              id="startDate"
               type="date"
               placeholder="Data início"
-              name="dataInicio"
-              onChange={(event) => setDataInicio(event.target.value)}
-              value={dataInicio}
+              name="startDate"
+              onChange={(event) => setStartDate(event.target.value)}
+              value={startDate}
             />
             <label htmlFor="localização">Localização da cultura:</label>
             <input
               id="localização"
               type="text"
               placeholder="Localização"
-              name="localizacao"
-              onChange={(event) => setLocalizacao(event.target.value)}
-              value={localizacao}
+              name="localization"
+              onChange={(event) => setLocalization(event.target.value)}
+              value={localization}
             />
             <Button type="submit">Adicionar</Button>
             <p>
