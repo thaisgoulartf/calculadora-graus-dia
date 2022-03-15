@@ -1,12 +1,12 @@
 import "../styles/dashboard.scss";
 
-import React, { useEffect, useState } from "react";
-import milho from "../assets/images/corn-aside.png";
+import { useEffect, useState } from "react";
 import { months } from "../util/months";
 import {
   ApiData,
   getWeatherTodayOrTomorrow,
 } from "../services/repositories/ApiRepository";
+import { BsCloudLightningRain } from "react-icons/bs";
 
 export enum Day {
   today = "Hoje",
@@ -67,7 +67,7 @@ export function ForecastCard(props: ForecastCardProps) {
       </div>
       <div>
         <span>
-          <img src={milho} alt="Milho" width="40px" height="40px" />
+          <BsCloudLightningRain />
         </span>
       </div>
     </div>

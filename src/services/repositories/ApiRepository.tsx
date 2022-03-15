@@ -31,7 +31,7 @@ export async function getApiData(startDate: Date, finalDate: Date) {
     return firstDayMarchMock
   }
   else{
-    return midMarchMock
+    return resultMock;
   }
   // return resultMock;
 }
@@ -325,25 +325,25 @@ const resultMock = {
   tzoffset: -3.0,
   days: [
     {
-      datetime: "2022-02-01",
+      datetime: "01-02-2022",
       temp: 25.1,
       precip: 0.9,
       normal: { precip: [0.0, 13.2, 119.8] },
     },
     {
-      datetime: "2022-02-02",
+      datetime: "02-02-2022",
       temp: 26.4,
       precip: 1.4,
       normal: { precip: [0.0, 1.8, 22.1] },
     },
     {
-      datetime: "2022-02-03",
+      datetime: "03-02-2022",
       temp: 26.9,
       precip: 0.7,
       normal: { precip: [0.0, 1.1, 12.2] },
     },
     {
-      datetime: "2022-02-04",
+      datetime: "04-02-2022",
       temp: 26.2,
       precip: 6.9,
       normal: { precip: [0.0, 16.8, 307.0] },

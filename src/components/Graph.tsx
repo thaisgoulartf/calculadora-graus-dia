@@ -17,7 +17,7 @@ import { useCurrentCulture } from "../hooks/useCurrentCulture";
 type ParsedData = {
   data: string;
   chuva: number;
-  temp: number;
+  temperatura: number;
   gd: number;
 };
 
@@ -39,7 +39,7 @@ export function Graph() {
         return {
           data: day.day.toISOString().split("T")[0],
           chuva: day.precip,
-          temp: day.avgTemp,
+          temperatura: day.avgTemp,
           gd: day.accumulatedGrausDias,
         };
       })
@@ -47,7 +47,7 @@ export function Graph() {
   }
 
   function hasGraphData() {
-    return currentCulture?.graphData != undefined;
+    return currentCulture?.graphData !== undefined;
   }
 
   async function loadGraphData() {
@@ -80,17 +80,10 @@ export function Graph() {
         >
           <CartesianGrid stroke="#f5f5f5" />
           <XAxis dataKey="data" scale="band" />
-          <YAxis yAxisId="left" scale="linear" />
+          <YAxis yAxisId="left"/>
           <YAxis yAxisId="right" orientation="right" />
           <Tooltip />
           <Legend />
-          <Line
-            yAxisId="left"
-            type="monotone"
-            dataKey="gd"
-            stroke="#8884d8"
-            activeDot={{ r: 8 }}
-          />
           <Bar
             yAxisId="right"
             type="monotone"
@@ -98,6 +91,20 @@ export function Graph() {
             stroke="#39A2DB"
             barSize={20}
             fill="#1CC5DC"
+          />
+          <Line
+            yAxisId="right"
+            type="monotone"
+            dataKey="temperatura"
+            stroke="#FF8AAE"
+            activeDot={{ r: 8 }}
+          />
+          <Line
+            yAxisId="left"
+            type="monotone"
+            dataKey="gd"
+            stroke="#519259"
+            activeDot={{ r: 8 }}
           />
         </ComposedChart>
       </ResponsiveContainer>

@@ -20,7 +20,7 @@ export function EditCultureModal() {
 
   async function handleUpdateCultura(event: FormEvent) {
     event.preventDefault();
-    const plantacao = plants.find((element) => element.id == plant);
+    const plantacao = plants.find((element) => element.id === plant);
     if (plantacao) {
       updateCulture({
         id: culture?.id!,
