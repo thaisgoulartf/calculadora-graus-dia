@@ -1,0 +1,40 @@
+.card {
+  height: 100%;
+  background-color: #54BAB9   ;
+  border-radius: 10px;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 1rem;
+  margin: 3rem;
+  align-items: center;
+}
+
+.card-day {
+  font-size: 1.1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-date {
+  margin-top: 8px;
+  font-size: 1em;
+  align-items: center;
+}
+
+.card-temp {
+  font-size: 1.2em;
+  margin-right: 12px;
+  align-items: center;
+}
+
+.card-local {
+  font-size: 1.2em;
+  margin-right: 12px;
+  align-items: center;
+}
