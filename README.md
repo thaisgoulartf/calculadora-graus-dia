@@ -20,6 +20,7 @@ uma modal ao clicar no botão Adicionar;
 7. RF07 - A tela e a modal de Adicionar Culturas devem mostrar os campos: Cultura, Descrição, Data de início da plantação e Localização;
 8. RF08 - Cada cultura terá seu próprio Dashboard;
 9. RF09 - s cultivares possíveis de se calcular são:
+
 • Milho K9300 PRO3 com temp basal = 10 e graus-dia acumulado = 726;
 • Milho K7400 VIP3 com temp basal = 10 e graus-dia acumulado = 790;
 • Milho K9105 VIP3 com temp basal = 10 e graus-dia acumulado = 810;
@@ -49,4 +50,6 @@ basal e somatório de graus-dia já são guardadas pelo sistema;
 ![dashboard-atualizado2](https://user-images.githubusercontent.com/30840149/159804711-09620082-3138-439e-be87-2816ed5678eb.png)
 
 4. Modal de Adicionar Cultura
-![image](https://user-images.githubusercontent.com/30840149/155750012-d2a29d64-f9e8-4a3b-a3d6-eb2c544c16cd.png)
+![modal-web](https://user-images.githubusercontent.com/30840149/159804852-05cbc6c8-491a-4fd1-98a5-37c5089c0f2e.png)
+
+
