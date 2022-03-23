@@ -21,10 +21,10 @@ uma modal ao clicar no botão Adicionar;
 8. RF08 - Cada cultura terá seu próprio Dashboard;
 9. RF09 - s cultivares possíveis de se calcular são:
 
-  1. Milho K9300 PRO3 com temp basal = 10 e graus-dia acumulado = 726;
-  2. Milho K7400 VIP3 com temp basal = 10 e graus-dia acumulado = 790;
-  3. Milho K9105 VIP3 com temp basal = 10 e graus-dia acumulado = 810;
-  4. Milho K7500 VIP3 com temp basal = 10 e graus-dia acumulado = 820.
+  <p> - Milho K9300 PRO3 com temp basal = 10 e graus-dia acumulado = 726;</p>
+  <p> - Milho K7400 VIP3 com temp basal = 10 e graus-dia acumulado = 790;</p>
+  <p> - Milho K9105 VIP3 com temp basal = 10 e graus-dia acumulado = 810;</p>
+  <p> - Milho K7500 VIP3 com temp basal = 10 e graus-dia acumulado = 820.</p>
 
 A escolha destes cultivares se deu devido à disponibilidade de dados referentes
 ao graus-dia nos portfólios do fabricante das sementes KWS. Também foram escolhidos pelos diferentes valores de graus-dia, representando cultivares de diferentes ciclos (superprecoce e precoce), permitindo que o usuário utilize cultivares com valores semelhantes, caso necessário.
