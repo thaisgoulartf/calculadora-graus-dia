@@ -21,10 +21,10 @@ uma modal ao clicar no botão Adicionar;
 8. RF08 - Cada cultura terá seu próprio Dashboard;
 9. RF09 - s cultivares possíveis de se calcular são:
 
-• Milho K9300 PRO3 com temp basal = 10 e graus-dia acumulado = 726;
-• Milho K7400 VIP3 com temp basal = 10 e graus-dia acumulado = 790;
-• Milho K9105 VIP3 com temp basal = 10 e graus-dia acumulado = 810;
-• Milho K7500 VIP3 com temp basal = 10 e graus-dia acumulado = 820.
+  1. Milho K9300 PRO3 com temp basal = 10 e graus-dia acumulado = 726;
+  2. Milho K7400 VIP3 com temp basal = 10 e graus-dia acumulado = 790;
+  3. Milho K9105 VIP3 com temp basal = 10 e graus-dia acumulado = 810;
+  4. Milho K7500 VIP3 com temp basal = 10 e graus-dia acumulado = 820.
 
 A escolha destes cultivares se deu devido à disponibilidade de dados referentes
 ao graus-dia nos portfólios do fabricante das sementes KWS. Também foram escolhidos pelos diferentes valores de graus-dia, representando cultivares de diferentes ciclos (superprecoce e precoce), permitindo que o usuário utilize cultivares com valores semelhantes, caso necessário.
@@ -41,15 +41,22 @@ basal e somatório de graus-dia já são guardadas pelo sistema;
 
 ## Telas
 1. Tela de Login
+
+
 ![tela-login](https://user-images.githubusercontent.com/30840149/159804554-0b65c823-e334-42de-a30d-3055acad0c53.png)
 
 2. Tela de Cadastro
+
+
 ![image](https://user-images.githubusercontent.com/30840149/155749840-588221ca-85aa-4ccc-b57d-9bfb15f63be3.png)
 
 3. Tela de Dashboard
+
+
 ![dashboard-atualizado2](https://user-images.githubusercontent.com/30840149/159804711-09620082-3138-439e-be87-2816ed5678eb.png)
 
 4. Modal de Adicionar Cultura
+
 ![modal-web](https://user-images.githubusercontent.com/30840149/159804852-05cbc6c8-491a-4fd1-98a5-37c5089c0f2e.png)
 
 
